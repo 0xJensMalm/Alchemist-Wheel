@@ -1,27 +1,39 @@
 #container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-  }
-  
-  #wheel-container {
-    width: 400px;
-    height: 400px;
-  }
-  
-  #info-frame {
-    margin-left: 20px;
-    padding: 20px;
-    width: 200px;  /* Fixed width */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #ffffff;
-  }
-  
-  #element-title {
-    margin: 0;
-    font-size: 24px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#wheel-container {
+  width: 400px;
+  height: 400px;
+}
+#info-frame {
+  margin-left: 20px;
+  padding: 20px;
+  width: 300px;  /* Fixed width */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+#element-title {
+  margin: 0;
+  max-width: 300px;  /* Max width */
+  max-height: 200px; /* Max height */
+  overflow: auto; /* Scroll if content is too large */
+  font-size: 12px; /* Text size for the paragraph */
+  box-sizing: border-box; /* Include padding and border in the box's total dimensions */
+}
+
+#element-title h1 {
+  font-size: 18px; /* Text size for the title */
+}
+
+#element-title p {
+  max-height: 150px; /* Max height for the paragraph */
+  overflow: auto; /* Scroll if content is too large */
+}
+
