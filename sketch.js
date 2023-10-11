@@ -92,8 +92,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Reset both info boxes if any element is deselected
         if (lockedElements.length === 0) {
-          d3.select("#element-title").html("Hover over an element");
-          d3.select("#second-element-title").html("Hover over another element");
+          // Reset both info boxes if no elements are locked
+          d3.select("#element-title").html("Hover over an element").style("display", "block");
+          d3.select("#second-element-title").html("Hover over another element").style("display", "block");
+          document.getElementById("combine-button").style.display = "none"; // Hide the button
+          document.getElementById("compound-info").style.display = "none"; // Hide the compound info box
         }
       } else {
         // Lock the element
@@ -126,6 +129,32 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     })
     
+  document.getElementById("combine-button").addEventListener("click", function() {
+    // Hide the combine button
+    document.getElementById("combine-button").style.display = "none";
+
+    // Show the compound info box
+    document.getElementById("compound-info").style.display = "block";
+
+    // Update the compound info box
+    d3.select("#compound-title").html("Compound Created");
+  });
+
+  document.getElementById("reset-button").addEventListener("click", function() {
+    // Reset everything
+    lockedElements = [];
+    d3.selectAll("path")
+      .classed("locked", false)
+      .attr("stroke", "#ffffff")
+      .attr("stroke-width", "1");
+  
+    d3.select("#element-title").html("Hover over an element").style("display", "block");
+    d3.select("#second-element-title").html("Hover over another element").style("display", "block");
+    document.getElementById("combine-button").style.display = "none"; // Hide the combine button
+    document.getElementById("compound-info").style.display = "none"; // Hide the compound info box
+  });
+  
+
   // Text Arcs and Labels
   const textArc = d3.arc()
     .innerRadius(innerRadius - 25)
