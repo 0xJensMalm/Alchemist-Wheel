@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
   
   const width = 600;
   const height = 600;
-  const outerRadius = 210;
-  const innerRadius = 170;
+  const outerRadius = 210 * 1.1;
+  const innerRadius = 170 * 1.1;
 
   const svg = d3.select("#wheel-container")
     .append("svg")
@@ -90,7 +90,19 @@ document.addEventListener("DOMContentLoaded", function() {
     .on("click", function(event, d, i) {
       const isLocked = d3.select(this).classed("locked");
       const secondInfoFrame = d3.select("#second-info-frame");
-      
+
+      if (lockedElements.length >= 2) {
+        // Reset everything
+        lockedElements = [];
+        d3.selectAll("path")
+          .classed("locked", false)
+          .attr("stroke", "#ffffff")
+          .attr("stroke-width", "1");
+        d3.select("#element-title").html("Hover over an element").style("display", "block");
+        d3.select("#second-element-title").html("Hover over another element").style("display", "block");
+        document.getElementById("combine-button").style.display = "none"; // Hide the button
+        document.getElementById("compound-info").style.display = "none"; // Hide the compound info box
+      }
       if (isLocked) {
         // Unlock the element
         d3.select(this)
