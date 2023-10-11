@@ -4,21 +4,21 @@
     <title>Interactive Wheel</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <body>
-      <div id="main-container">
-        <div id="header">
-          <!-- Optional: Any header content -->
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="wheel-container">
+        <!-- The wheel will be appended here -->
+      </div>
+      <div id="info-container">
+        <div id="info-frame">
+          <h1 id="element-title">Hover over an element</h1>
         </div>
-        <div id="content-container">
-          <div id="wheel-container">
-            <!-- The wheel will be appended here -->
-          </div>
-          <div id="info-frame">
-            <h1 id="element-title">Hover over an element</h1>
-          </div>
+        <div id="second-info-frame">
+          <h1 id="second-element-title">Hover over another element</h1>
         </div>
       </div>
-      <script src="sketch.js"></script>
-    </body>
-    
+    </div>
+    <script src="sketch.js"></script>
+  </body>
 </html>
