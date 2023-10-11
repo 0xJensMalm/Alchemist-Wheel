@@ -13,6 +13,17 @@ d3.json("elementInfo.json").then(data => {
   elementData = data;
 });
 
+let elementCombinations;
+d3.json("elementCombinations.json")
+  .then(data => {
+    elementCombinations = data;
+  })
+  .catch(error => {
+    console.log("Error reading JSON:", error);
+  });
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   
   const elements = ['Hydrogen', 'Oxygen', 'Carbon', 'Nitrogen', 'Sodium', 'Chlorine', 'Phosphorus', 'Calcium', 'Silicon', 'Iron'];
@@ -119,9 +130,20 @@ document.addEventListener("DOMContentLoaded", function() {
         d3.select("#second-element-title").html("Hover over another element");
         document.getElementById("combine-button").style.display = "none"; // Hide the button
       } else if (lockedElements.length > 1) {
-        const secondElement = lockedElements[1];
-        updateInfoBox("#second-element-title", secondElement);
+        const firstElement = lockedElements[0].name;
+        const secondElement = lockedElements[1].name;
+        updateInfoBox("#second-element-title", lockedElements[1]);
         document.getElementById("combine-button").style.display = "inline-block"; // Show the button
+      
+        // Find the matching compound
+        const compoundInfo = elementCombinations.find(compound => {
+          return compound.elements.includes(firstElement) && compound.elements.includes(secondElement);
+        });
+      
+        if (compoundInfo) {
+          // Update compound info box
+          d3.select("#compound-info").html(`<h1>${compoundInfo.compound}</h1><p>${compoundInfo.description}</p><button id='reset-button'>Reset</button>`);
+        }
       } else {
         // Reset both info boxes if no elements are locked
         d3.select("#element-title").html("Hover over an element");
@@ -152,6 +174,21 @@ document.addEventListener("DOMContentLoaded", function() {
     d3.select("#second-element-title").html("Hover over another element").style("display", "block");
     document.getElementById("combine-button").style.display = "none"; // Hide the combine button
     document.getElementById("compound-info").style.display = "none"; // Hide the compound info box
+  });
+  
+  document.addEventListener("click", function(event) {
+    if (event.target.id === "reset-button") {
+      // Reset logic here
+      lockedElements = [];
+      d3.selectAll(".locked")
+        .classed("locked", false)
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", "1");
+      d3.select("#element-title").html("Hover over an element");
+      d3.select("#second-element-title").html("Hover over another element");
+      d3.select("#compound-info").html("");
+      document.getElementById("combine-button").style.display = "none";
+    }
   });
   
 
