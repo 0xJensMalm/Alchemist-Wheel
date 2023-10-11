@@ -8,57 +8,51 @@
   background-color: #f0f0f0;
 }
 
-/* Header */
-#header {
-  margin-bottom: 20px;
-}
-
-/* Content Container */
-#content-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 /* Wheel Container */
 #wheel-container {
-  width: 600px;
-  height: 600px;
-  flex-shrink: 0;
-  flex-grow: 0;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
 }
 
-/* Info Frame */
-#info-frame {
-  margin-left: 20px;
+/* Info Container */
+#info-container {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+}
+
+/* Info boxes */
+/* Info boxes */
+#info-frame, #second-info-frame {
+  margin: 10px 20px;  /* Added horizontal margin for separation */
   padding: 20px;
   width: 300px;
-  height: 220px;
+  height: 180px;  /* Decreased height */
+  overflow: auto;  /* Add scrollbar if content overflows */
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #ffffff;
-  flex-shrink: 0;
-  flex-grow: 0;
+  font-size: 14px;  /* Explicitly set font size */
+  text-align: center;
 }
 
-
-#container {
-  display: flex;
-  flex-direction: row;  /* Changed back to row */
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
-}
-
-#element-title {
+/* Additional Styling for text in both boxes */
+#element-title, #second-element-title {
   margin: 0;
   max-width: 300px;  /* Max width */
-  max-height: 200px; /* Max height */
-  overflow: auto; /* Scroll if content is too large */
-  font-size: 12px; /* Text size for the paragraph */
-  box-sizing: border-box; /* Include padding and border in the box's total dimensions */
+  max-height: 180px;  /* Max height, adjusted to match box height */
+  overflow: auto;  /* Scroll if content is too large */
+  font-size: 12px;  /* Text size for the paragraph */
+  box-sizing: border-box;  /* Include padding and border in the box's total dimensions */
 }
+
 
 .arcLabel {
   user-select: none;  /* Disable text selection */
@@ -66,12 +60,13 @@
   cursor: default;  /* Set cursor to default instead of text selection cursor */
 }
 
-#element-title h1 {
-  font-size: 18px; /* Text size for the title */
+#element-title h1, #second-element-title h1 {
+  font-size: 18px;
 }
 
-#element-title p {
+#element-title p, #second-element-title p {
   max-height: 150px; /* Max height for the paragraph */
   overflow: auto; /* Scroll if content is too large */
+  font-size: 12px; /* Text size for the paragraph */
 }
 

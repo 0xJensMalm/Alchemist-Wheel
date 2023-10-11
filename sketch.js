@@ -1,4 +1,7 @@
 let elementData;
+let selectedElement = null;
+let lockedElements = [];
+
 
 // Load JSON data
 d3.json("elementInfo.json").then(data => {
@@ -17,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const innerRadius = 170;
 
   const infoFrame = d3.select("#element-title");
+  const secondInfoFrame = d3.select("#second-element-title");
+
 
   const svg = d3.select("#wheel-container")
     .append("svg")
@@ -42,22 +47,78 @@ document.addEventListener("DOMContentLoaded", function() {
     .attr("fill", (d, i) => colors[i])
     .attr("stroke", "#ffffff")
     .attr("stroke-width", "1")
-    .on("mouseover", function(event, d, i) {
+    
+
+  .on("mouseover", function(event, d, i) {
+    // Highlight the element if it's not locked
+    if (!d3.select(this).classed("locked")) {
       d3.select(this)
         .attr("stroke", "#000000")
-        .attr("stroke-width", "2");
-
-      const elementInfo = elementData.find(e => e.symbol === symbols[d.index]);
-      if (elementInfo) {
+        .attr("stroke-width", "2"); 
+    }
+    // Update the appropriate tooltip
+    const elementInfo = elementData.find(e => e.symbol === symbols[d.index]);
+    if (elementInfo) {
+      if (lockedElements.length === 0) {
         infoFrame.html(`<h1>${elementInfo.name} (${elementInfo.symbol})</h1><p>${elementInfo.description}</p>`);
+      } else if (lockedElements.length === 1) {
+        d3.select("#second-info-frame").html(`<h1>${elementInfo.name} (${elementInfo.symbol})</h1><p>${elementInfo.description}</p>`);
       }
-    })
-    .on("mouseout", function(d) {
+    }
+  })
+  .on("mouseout", function(d) {
+    // Reset the element if it's not locked
+    if (!d3.select(this).classed("locked")) {
       d3.select(this)
         .attr("stroke", "#ffffff")
         .attr("stroke-width", "1");
-      infoFrame.html("<h1>Hover over an element</h1>");
-    });
+    }
+  })
+  .on("click", function(event, d, i) {
+    const isLocked = d3.select(this).classed("locked");
+    const secondInfoFrame = d3.select("#second-info-frame");
+  
+    if (isLocked) {
+      // Unlock the element
+      d3.select(this)
+        .classed("locked", false)
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", "1");
+  
+      // Remove the element from the lockedElements array
+      lockedElements = lockedElements.filter(e => e.symbol !== symbols[d.index]);
+    } else {
+      // Lock the element
+      d3.select(this)
+        .classed("locked", true)
+        .attr("stroke", "#000000")
+        .attr("stroke-width", "2");
+  
+      // Add the element to the lockedElements array
+      const elementInfo = elementData.find(e => e.symbol === symbols[d.index]);
+      if (elementInfo) {
+        lockedElements.push(elementInfo);
+      }
+    }
+  
+    // Update the first or second tooltip based on the lockedElements array
+    if (lockedElements.length === 1) {
+      const firstElement = lockedElements[0];
+      infoFrame.html(`<h1>${firstElement.name} (${firstElement.symbol})</h1><p>${firstElement.description}</p>`);
+      secondInfoFrame.html("Hover over another element");
+    } else if (lockedElements.length > 1) {
+      const secondElement = lockedElements[1];
+      secondInfoFrame.html(`<h1>${secondElement.name} (${secondElement.symbol})</h1><p>${secondElement.description}</p>`);
+    }
+  
+    // Show or hide the second tooltip based on whether any elements are locked
+    if (lockedElements.length > 0) {
+      secondInfoFrame.style("display", "block");
+    } else {
+      secondInfoFrame.style("display", "none");
+    }
+  })
+  
 
   // Text Arcs and Labels
   const textArc = d3.arc()
