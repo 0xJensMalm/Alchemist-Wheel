@@ -8,23 +8,36 @@
   </head>
   <body>
     <div id="main-container">
-      <div id="wheel-container">
-        <!-- The wheel will be appended here -->
-      </div>
-      <div id="info-container">
+      <div id="left-info-container">
         <div class="info-frame" id="info-frame">
           <h1 class="info-title" id="element-title">Hover over an element</h1>
           <p class="info-description"></p>
         </div>
-        <button id="combine-button" style="display: none;">Combine</button>
-        <div id="compound-info" style="display:none;">
-          <h1 id="compound-title">Compound Created</h1>
-          <button id="reset-button">Reset</button>
-        </div>
+      </div>
+      <div id="wheel-container">
+        <!-- The wheel will be appended here -->
+      </div>
+      <div id="right-info-container">
         <div class="info-frame" id="second-info-frame">
+          <img src="placeholder/element1.png" class="info-image">
           <h1 class="info-title" id="second-element-title">Hover over another element</h1>
           <p class="info-description"></p>
         </div>
+        <!-- Add this inside your <body> tag but outside of #main-container -->
+        <div id="compound-popup" class="popup">
+          <div class="popup-content">
+            <button id="popup-close-button">Close</button>
+            <div class="popup-image">
+              <img src="placeholder/compound.png" alt="Compound Image">
+            </div>
+            <div class="popup-divider"></div>
+            <div class="popup-info">
+              <h1 id="popup-title">Compound Created</h1>
+              <p id="popup-description"></p>
+            </div>
+          </div>
+        </div>
+
       </div>      
     </div>
     <script src="sketch.js"></script>
