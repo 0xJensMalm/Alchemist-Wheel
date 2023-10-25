@@ -1,5 +1,8 @@
 # Interactive Element Combination Wheel. 
 
+
+🚧 The app is currently under construction 🚧
+
 ## Overview
 
 Make interesting compounds by combinging the elements. 
@@ -12,6 +15,7 @@ Make interesting compounds by combinging the elements.
 - Responsive design
 
 ## Installation
+This app is made with vanilla html/css/js 
 
 1. Clone the repository:
 git clone https://github.com/yourusername/interactive-wheel.git
